@@ -1,1 +1,0 @@
-# react-qr-code
