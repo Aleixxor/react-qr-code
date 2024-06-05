@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Html5QrCodePlugin from "../components/Html5QrCodePlugin";
-import { Card, Container, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 
 export const BarcodeReaderPage = () => {
   const [result, setResult] = useState("Nenhum código encontrado");

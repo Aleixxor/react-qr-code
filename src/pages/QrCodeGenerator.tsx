@@ -52,7 +52,8 @@ export const QrCodeGeneratorPage = () => {
     const digitos = text.split("").map(Number);
     const digitoVerificador = calculaDigitoVerificadorEAN13(digitos);
     text += digitoVerificador;
-    const textoQR = `${prefixo}-${text}`;
+    console.log("Digito válido?", validaDigitoVerificadorEAN13(text))
+    const textoQR = `${prefixo}${text}`;
     const url = await QRCode.toDataURL(textoQR);
     saveAs(url, `${textoQR}.jpg`);
     setCurrentQrCodeText(textoQR);
@@ -82,7 +83,7 @@ export const QrCodeGeneratorPage = () => {
     <Box mt={3} display={"flex"} flexDirection={"column"} alignItems={"center"} gap={3}>
       <TextField label="Prefixo" type="text" value={prefixo} onChange={(e) => setPrefixo(e.target.value)} />
       <TextField label="Quantidade" type="number" value={quantidade} onChange={(e) => setQuantidade(parseInt(e.target.value))} />
-      <small style={{ color: "gray" }}>Formato do QR Code: {prefixo}-{"0".padStart(`${quantidade}`.length + 1, '0')}</small>
+      <small style={{ color: "gray" }}>Formato do QR Code: {prefixo}{"0".padStart(`${quantidade}`.length + 1, '0')}</small>
       {gerando ? 
         <Button variant="contained" color="error" onClick={() => setGerando(false)}>Parar de gerar</Button> : 
         <Button variant="contained" color="primary" onClick={() => setGerando(true)}>Gerar QR Codes</Button>

@@ -2,9 +2,22 @@ import { Container, Grid, Card, CardActionArea, CardContent, Typography } from '
 import { useNavigate } from 'react-router-dom';
 import { QrCode2, QrCodeScanner } from '@mui/icons-material';
 import { RoutePaths } from '../RoutePaths';
+import { connectDB, selectDB } from '../utils/dbConnection';
+import { useEffect } from 'react';
 
 export const HomePage = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    connectDB()
+      .then(db => {
+        console.log(db);
+        selectDB(db, "SELECT TOP 10 * FROM QRCODES")
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+      })
+      .catch(err => console.log(err))
+  }, [])
 
   return (
     <Container sx={{mt: 3}}>
